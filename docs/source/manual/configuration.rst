@@ -482,8 +482,12 @@ For an encrypted connection HTTP/2 uses ALPN protocol. It's a TLS extension, tha
 a protocol to use after the handshake is complete. If either side does not support ALPN, then the protocol will
 be ignored, and an HTTP/1.1 connection over TLS will be used instead.
 
-For this connector to work with ALPN protocol you need to provide alpn-boot library to JVM's bootpath.
-The correct library version depends on a JVM version. Consult Jetty ALPN guide__ for the reference.
+For this connector to work with ALPN protocol you need to either:
+
+* Enable native SSL support via Google's Conscrypt as described in the :ref:`SSL section <man-core-ssl>` of the
+  Core manual; or
+* Provide alpn-boot library to JVM's bootpath. The correct library version depends on the JVM version.
+  Consult Jetty ALPN guide__ for the reference.
 
 .. __: http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html
 
@@ -891,40 +895,40 @@ JSON access log layout
       additionalFields:
         service-name: "user-service"
 
-=======================  =========================== ================
-Name                     Default                     Description
-=======================  =========================== ================
-timestampFormat          (none)                      By default, the timestamp is not formatted. To customize how timestamps are formatted,
-                                                     set the property to the corresponding DateTimeFormatter_ string or one of the predefined formats
-                                                     (e.g. ``ISO_LOCAL_TIME``, ``ISO_ZONED_DATE_TIME``,``RFC_1123_DATE_TIME``).
-prettyPrint              false                       Whether the JSON output should be formatted for human readability.
-appendLineSeparator      true                        Whether to append a line separator at the end of the message formatted as JSON.
+=======================  ===========================  ================
+Name                     Default                      Description
+=======================  ===========================  ================
+timestampFormat          (none)                       By default, the timestamp is not formatted. To customize how timestamps are formatted,
+                                                      set the property to the corresponding DateTimeFormatter_ string or one of the predefined formats
+                                                      (e.g. ``ISO_LOCAL_TIME``, ``ISO_ZONED_DATE_TIME``,``RFC_1123_DATE_TIME``).
+prettyPrint              false                        Whether the JSON output should be formatted for human readability.
+appendLineSeparator      true                         Whether to append a line separator at the end of the message formatted as JSON.
 includes                 (timestamp, remoteAddress,
                          protocol, method,
                          requestUri, statusCode,
                          requestTime, contentLength,
-                         userAgent)                  Set of logging event attributes to include in the JSON map:
+                         userAgent)                   Set of logging event attributes to include in the JSON map:
 
-                                                     - ``contentLength``     *true*     Whether to include the response content length, if it's known as the ``contentLength`` field.
-                                                     - ``method``            *true*     Whether to include the request HTTP method as the ``method`` field.
-                                                     - ``remoteAddress``     *true*     Whether to include the IP address of the client or last proxy that sent the request as the ``remoteAddress`` field.
-                                                     - ``remoteUser``        *true*     Whether to include information about the remote user as the ``remoteUser`` field.
-                                                     - ``requestTime``       *true*     Whether to include the time elapsed between receiving the request and logging it as the ``requestTime`` field. Time is in *ms*.
-                                                     - ``requestUri``        *true*     Whether to include the URI of the request as the ``uri`` field.
-                                                     - ``statusCode``        *true*     Whether to include the status code of the response as the ``status`` field.
-                                                     - ``protocol``          *true*     Whether to include the request HTTP protocol as the ``protocol`` field.
-                                                     - ``timestamp``         *true*     Whether to include the timestamp of the event the ``timestamp`` field.
-                                                     - ``userAgent``         *true*     Whether to include the user agent of the request as the ``userAgent`` field.
-                                                     - ``requestParameters`` *false*    Whether to include the request parameters as the ``params`` field.
-                                                     - ``requestContent``    *false*    Whether to include the body of the request as the ``requestContent`` field.
-                                                     - ``requestUrl``        *false*    Whether to include the request URL (method, URI, query parameters, protocol) as the ``contentLength`` field.
-                                                     - ``remoteHost``        *false*    Whether to include the fully qualified name of the client or the last proxy that sent the request as the ``remoteHost`` field.
-                                                     - ``responseContent``   *false*    Whether to include the response body as the ``responseContent`` field.
-                                                     - ``serverName``        *false*    Whether to include the name of the server to which the request was sent as the ``serverName`` field.
-requestHeaders           (empty)                     Set of request headers included in the JSON map as the ``headers`` field.
-responseHeaders          (empty)                     Set of response headers included in the JSON map as the ``responseHeaders`` field.
-customFieldNames         (empty)                     Map of field name replacements in the JSON map. For example ``requestTime:request_time, userAgent:user_agent)``.
-additionalFields         (empty)                     Map of fields to add in the JSON map.
+                                                      - ``contentLength``     *true*     Whether to include the response content length, if it's known as the ``contentLength`` field.
+                                                      - ``method``            *true*     Whether to include the request HTTP method as the ``method`` field.
+                                                      - ``remoteAddress``     *true*     Whether to include the IP address of the client or last proxy that sent the request as the ``remoteAddress`` field.
+                                                      - ``remoteUser``        *true*     Whether to include information about the remote user as the ``remoteUser`` field.
+                                                      - ``requestTime``       *true*     Whether to include the time elapsed between receiving the request and logging it as the ``requestTime`` field. Time is in *ms*.
+                                                      - ``requestUri``        *true*     Whether to include the URI of the request as the ``uri`` field.
+                                                      - ``statusCode``        *true*     Whether to include the status code of the response as the ``status`` field.
+                                                      - ``protocol``          *true*     Whether to include the request HTTP protocol as the ``protocol`` field.
+                                                      - ``timestamp``         *true*     Whether to include the timestamp of the event the ``timestamp`` field.
+                                                      - ``userAgent``         *true*     Whether to include the user agent of the request as the ``userAgent`` field.
+                                                      - ``requestParameters`` *false*    Whether to include the request parameters as the ``params`` field.
+                                                      - ``requestContent``    *false*    Whether to include the body of the request as the ``requestContent`` field.
+                                                      - ``requestUrl``        *false*    Whether to include the request URL (method, URI, query parameters, protocol) as the ``contentLength`` field.
+                                                      - ``remoteHost``        *false*    Whether to include the fully qualified name of the client or the last proxy that sent the request as the ``remoteHost`` field.
+                                                      - ``responseContent``   *false*    Whether to include the response body as the ``responseContent`` field.
+                                                      - ``serverName``        *false*    Whether to include the name of the server to which the request was sent as the ``serverName`` field.
+requestHeaders           (empty)                      Set of request headers included in the JSON map as the ``headers`` field.
+responseHeaders          (empty)                      Set of response headers included in the JSON map as the ``responseHeaders`` field.
+customFieldNames         (empty)                      Map of field name replacements in the JSON map. For example ``requestTime:request_time, userAgent:user_agent)``.
+additionalFields         (empty)                      Map of fields to add in the JSON map.
 =======================  ===========================  ================
 
 .. _DateTimeFormatter:  https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
@@ -1071,50 +1075,6 @@ Name                   Default          Description
 ====================== ===============  ===========
 file                   No default       The CSV file to write metrics to.
 ====================== ===============  ===========
-
-
-.. _man-configuration-metrics-ganglia:
-
-Ganglia Reporter
-----------------
-
-Reports metrics periodically to Ganglia.
-
-Extends the attributes that are available to :ref:`all reporters <man-configuration-metrics-all>`
-
-.. note::
-
-    You will need to add ``dropwizard-metrics-ganglia`` to your POM.
-
-.. code-block:: yaml
-
-    metrics:
-      reporters:
-        - type: ganglia
-          host: localhost
-          port: 8649
-          mode: unicast
-          ttl: 1
-          uuid: (none)
-          spoof: localhost:8649
-          tmax: 60
-          dmax: 0
-
-
-====================== ===============  ====================================================================================================
-Name                   Default          Description
-====================== ===============  ====================================================================================================
-host                   localhost        The hostname (or group) of the Ganglia server(s) to report to.
-port                   8649             The port of the Ganglia server(s) to report to.
-mode                   unicast          The UDP addressing mode to announce the metrics with. One of ``unicast``
-                                        or ``multicast``.
-ttl                    1                The time-to-live of the UDP packets for the announced metrics.
-uuid                   (none)           The UUID to tag announced metrics with.
-spoof                  (none)           The hostname and port to use instead of this nodes for the announced metrics.
-                                        In the format ``hostname:port``.
-tmax                   60               The tmax value to announce metrics with.
-dmax                   0                The dmax value to announce metrics with.
-====================== ===============  ====================================================================================================
 
 
 .. _man-configuration-metrics-graphite:
@@ -1490,6 +1450,12 @@ validationInterval              30 seconds               To avoid excess validat
 validatorClassName              none                     Name of a class of a custom validator implementation, which
                                                          will be used for validating connections.
 jdbcInterceptors                none                       A semicolon separated list of JDBC interceptor classnames.
+
+ignoreExceptionOnPreLoad        false                    Flag whether ignore error of connection creation while
+                                                         initializing the pool. Set to true if you want to ignore
+                                                         error of connection creation while initializing the pool.
+                                                         Set to false if you want to fail the initialization of the
+                                                         pool by throwing exception.
 ============================    =====================    ===============================================================
 
 .. _man-configuration-polymorphic:

@@ -4,49 +4,63 @@
 Release Notes
 #############
 
-.. _rel-1.3.0:
+.. _rel-1.3.1:
 
-v1.3.0: Unreleased
+v1.3.1: Unreleased
 ==================
 
-* Correctly handle the default context path when logging endpoints `#2279 <https://github.com/dropwizard/dropwizard/pull/2279>`_
+* Upgrade to Jackson 2.9.5 (`CVE-2018-7489 <https://nvd.nist.gov/vuln/detail/CVE-2018-7489>`_)
+
+
+.. _rel-1.3.0:
+
+v1.3.0: Mar 14, 2018
+====================
+
+* Add "dropwizard-jdbi3" module `#2243 <https://github.com/dropwizard/dropwizard/pull/2243>`_, `#2247 <https://github.com/dropwizard/dropwizard/pull/2247>`_
+* Add Dropwizard testing module for JUnit 5 `#2166 <https://github.com/dropwizard/dropwizard/pull/2166>`_
+* Support for building and running Dropwizard on JDK9 `#2197 <https://github.com/dropwizard/dropwizard/pull/2197>`_
+* Support for running Dropwizard with native SSL via Conscrypt `#2230 <https://github.com/dropwizard/dropwizard/pull/2230>`_
+* Add support for JSON logs in Dropwizard `#2232 <https://github.com/dropwizard/dropwizard/pull/2232>`_
+* Add a TCP and UDP log appenders to Dropwizard `#2291 <https://github.com/dropwizard/dropwizard/pull/2291>`_
 * Add support for providing a custom logging layout during logging bootstrap `#2260 <https://github.com/dropwizard/dropwizard/pull/2260>`_
 * Add context path to logged endpoints `#2254 <https://github.com/dropwizard/dropwizard/pull/2254>`_
-* Enable auto escaping of strings in Freemarker templates `#2251 <https://github.com/dropwizard/dropwizard/pull/2251>`_
-* Add 'dropwizard-jdbi3' module `#2243 <https://github.com/dropwizard/dropwizard/pull/2243>`_, `#2247 <https://github.com/dropwizard/dropwizard/pull/2247>`_
-* Allow dynamic constraint validation messages `#2246 <https://github.com/dropwizard/dropwizard/pull/2246>`_
-* Add support for JSON logs in Dropwizard `#2232 <https://github.com/dropwizard/dropwizard/pull/2232>`_
-* Support for building and running Dropwizard on JDK9 `#2197 <https://github.com/dropwizard/dropwizard/pull/2197>`_
-* Add Dropwizard testing module for JUnit 5 `#2166 <https://github.com/dropwizard/dropwizard/pull/2166>`_
-* Add the SelfValidation annotation as a powerful alternative to ValidationMethod `#2150 <https://github.com/dropwizard/dropwizard/pull/2150>`_
 * Support multiple extensions for views (breaking change) `#2213 <https://github.com/dropwizard/dropwizard/pull/2213>`_
-* Set a minimal duration for DatasourceFactory.maxWaitForConnection `#2130 <https://github.com/dropwizard/dropwizard/pull/2130>`_
+* Enable auto escaping of strings in Freemarker templates `#2251 <https://github.com/dropwizard/dropwizard/pull/2251>`_
+* Allow dynamic constraint validation messages `#2246 <https://github.com/dropwizard/dropwizard/pull/2246>`_
+* Add the ``@SelfValidation`` annotation as a powerful alternative to ``@ValidationMethod`` `#2150 <https://github.com/dropwizard/dropwizard/pull/2150>`_
+* Set a minimal duration for ``DatasourceFactory.maxWaitForConnection()`` `#2130 <https://github.com/dropwizard/dropwizard/pull/2130>`_
 * Migrate deprecated classes from commons-lang to commons-text `#2208 <https://github.com/dropwizard/dropwizard/pull/2208>`_
-* Enable NullAway errorprone checks `#2204 <https://github.com/dropwizard/dropwizard/pull/2204>`_
-* Support for setting the immediateFlush option for file logging `#2193 <https://github.com/dropwizard/dropwizard/pull/2193>`_
-* Use InstrumentedQueuedThreadPool for admin endpoint `#2186 <https://github.com/dropwizard/dropwizard/pull/2186>`_
-* Add support for configuring ServiceUnavailableRetryStrategy for HTTP clients `#2185 <https://github.com/dropwizard/dropwizard/pull/2185>`_
-* Add possibility to configure Jetty's minRequestDataRate `#2184 <https://github.com/dropwizard/dropwizard/pull/2184>`_
-* Add exclusive mode to MinDuration and MaxDuration annotations `#2167 <https://github.com/dropwizard/dropwizard/pull/2167>`_
-* Upgrade Jadira to 7.0.0-rc1 `#2272 <https://github.com/dropwizard/dropwizard/pull/2272>`_
-* Strip the Content-Length header after decompressing HTTP requests `#2271 <https://github.com/dropwizard/dropwizard/pull/2271>`_
-* Upgrade handling an unknown value in FuzzyEnumModule `#2266 <https://github.com/dropwizard/dropwizard/pull/2266>`_
+* Support for setting the ``immediateFlush`` option for file logging `#2193 <https://github.com/dropwizard/dropwizard/pull/2193>`_
+* Use ``InstrumentedQueuedThreadPool`` for admin endpoint `#2186 <https://github.com/dropwizard/dropwizard/pull/2186>`_
+* Add support for configuring ``ServiceUnavailableRetryStrategy`` for HTTP clients `#2185 <https://github.com/dropwizard/dropwizard/pull/2185>`_
+* Add possibility to configure Jetty's ``minRequestDataRate`` `#2184 <https://github.com/dropwizard/dropwizard/pull/2184>`_
+* Add exclusive mode to ``@MinDuration`` and ``@MaxDuration`` annotations `#2167 <https://github.com/dropwizard/dropwizard/pull/2167>`_
+* Strip the ``Content-Length`` header after decompressing HTTP requests `#2271 <https://github.com/dropwizard/dropwizard/pull/2271>`_
 * Add support for providing a custom layout during logging bootstrap `#2260 <https://github.com/dropwizard/dropwizard/pull/2260>`_
-* Add context path to logged endpoints `#2254 <https://github.com/dropwizard/dropwizard/pull/2254>`_
-* Add a TCP and UDP log appenders to Dropwizard `#2291 <https://github.com/dropwizard/dropwizard/pull/2291>`_
-* Upgrade to metrics 4.0.2
-* Upgrade to Guava 24.0-jre
-* Upgrade to JUnit 5.0.3
-* Upgrade to Error Prone 2.2.0
-* Upgrade to NullAway 0.3.2
-* Upgrade to Apache HttpClient 4.5.5
-* Upgrade to Apache Commons Text 1.2
-* Upgrade to Liquibase 3.5.4
-* Upgrade to Hibernate 5.2.13.Final
-* Upgrade to Apache Tomcat JDBC 9.0.4
+* Add support for PATCH request to Jersey test client `#2288 <https://github.com/dropwizard/dropwizard/pull/2288>`_
+* Add configuration option to ``EventJsonLayoutBaseFactory`` to flatten MDC `#2293 <https://github.com/dropwizard/dropwizard/pull/2293>`_
+* Allow to use custom security provider in HTTP client `#2299 <https://github.com/dropwizard/dropwizard/pull/2299>`_
+* Make ``ignoreExceptionOnPreLoad`` on ``PoolProperties`` configurable `#2300 <https://github.com/dropwizard/dropwizard/pull/2300>`_
+* Allow lazy initialization of resources in ``ResourceTestRule`` `#2304 <https://github.com/dropwizard/dropwizard/pull/2304>`_
+* Make sure Jersey test client uses Dropwizard's ``ObjectMapper`` `#2277 <https://github.com/dropwizard/dropwizard/pull/2277>`_
+* Allow customizing Hibernate Configuration in ``DAOTest`` `#2301 <https://github.com/dropwizard/dropwizard/pull/2301>`_
 * Upgrade to Apache Commons Lang3 3.7
-* Upgrade to AssertJ 3.9.0
+* Upgrade to Apache Commons Text 1.2
+* Upgrade to Apache HttpClient 4.5.5
+* Upgrade to Apache Tomcat JDBC 9.0.5
+* Upgrade to Argparse4j 0.8.1
+* Upgrade to AssertJ 3.9.1
+* Upgrade to Dropwizard Metrics 4.0.2
+* Upgrade to Error Prone 2.2.0
+* Upgrade to Guava 24.0-jre
+* Upgrade to Hibernate 5.2.15.Final
 * Upgrade to Jackson 2.9.4
+* Upgrade Jadira to 7.0.0-rc1 `#2272 <https://github.com/dropwizard/dropwizard/pull/2272>`_
+* Upgrade to Jdbi 3.1.0 `#2289 <https://github.com/dropwizard/dropwizard/pull/2289>`_
+* Upgrade to JUnit 5.0.3
+* Upgrade to Mockito 2.15.0
+* Upgrade to NullAway 0.3.2
 
 .. _rel-1.2.4:
 

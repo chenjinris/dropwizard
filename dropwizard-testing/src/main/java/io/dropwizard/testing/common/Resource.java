@@ -23,14 +23,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
 public class Resource {
-
-    static {
-        BootstrapLogging.bootstrap();
-    }
 
     /**
      * A {@link Resource} builder which enables configuration of a Jersey testing environment.
@@ -38,7 +35,7 @@ public class Resource {
     @SuppressWarnings("unchecked")
     public static class Builder<B extends Builder<B>> {
 
-        private final Set<Object> singletons = new HashSet<>();
+        private final Set<Supplier<?>> singletons = new HashSet<>();
         private final Set<Class<?>> providers = new HashSet<>();
         private final Map<String, Object> properties = new HashMap<>();
         private ObjectMapper mapper = Jackson.newObjectMapper();
@@ -47,6 +44,7 @@ public class Resource {
         };
         private TestContainerFactory testContainerFactory = new InMemoryTestContainerFactory();
         private boolean registerDefaultExceptionMappers = true;
+        private boolean bootstrapLogging = true;
 
         public B setMapper(ObjectMapper mapper) {
             this.mapper = mapper;
@@ -64,7 +62,11 @@ public class Resource {
         }
 
         public B addResource(Object resource) {
-            singletons.add(resource);
+            return addResource(() -> resource);
+        }
+
+        public B addResource(Supplier<Object> resourceSupplier) {
+            singletons.add(resourceSupplier);
             return (B) this;
         }
 
@@ -73,9 +75,13 @@ public class Resource {
             return (B) this;
         }
 
-        public B addProvider(Object provider) {
-            singletons.add(provider);
+        public B addProvider(Supplier<Object> providerSupplier) {
+            singletons.add(providerSupplier);
             return (B) this;
+        }
+
+        public B addProvider(Object provider) {
+            return addProvider(() -> provider);
         }
 
         public B addProperty(String property, Object value) {
@@ -93,12 +99,20 @@ public class Resource {
             return (B) this;
         }
 
+        public B bootstrapLogging(boolean value){
+            bootstrapLogging = value;
+            return (B) this;
+        }
+
         /**
          * Builds a {@link Resource} with a configured Jersey testing environment.
          *
          * @return a new {@link Resource}
          */
         protected Resource buildResource() {
+            if (bootstrapLogging) {
+                BootstrapLogging.bootstrap();
+            }
             return new Resource(new ResourceTestJerseyConfiguration(
                 singletons, providers, properties, mapper, validator,
                 clientConfigurator, testContainerFactory, registerDefaultExceptionMappers));
